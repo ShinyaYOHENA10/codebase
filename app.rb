@@ -41,5 +41,19 @@ post '/form_output' do
 end
 
 
+get '/upload' do
+  @images = Dir.glob("./public/images/*")
+    .map{|path| path.split('/').last }
+  erb :upload
+end
 
+# アップロードのエンドポイント
+post '/upload' do
+  @filename = params[:file][:filename]
+  tmp = params[:file][:tempfile]
+
+  FileUtils.mv(tmp, "./public/images/#{@filename}")
+
+  erb :upload_output
+end
 

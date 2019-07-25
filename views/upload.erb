@@ -1,0 +1,13 @@
+<!-- views/form.erb　-->
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file">
+
+    <input type="submit" value="送信する">
+</form>
+
+<%# イメージをループ文を使って全て表示 %>
+<%# imagesディレクトリのファイルをimgタグで表示する %>
+<% @images.each do |image| %>
+    <img src="/image/<%= image %>" />
+<% end %>
+
