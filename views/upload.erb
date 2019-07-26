@@ -1,9 +1,9 @@
-<!-- views/form.erb　-->
+<%# <!-- views/form.erb　-->
 <form action="/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="file">
 
     <input type="submit" value="送信する">
-</form>
+</form> %>
 
 <%# イメージをループ文を使って全て表示 %>
 <%# imagesディレクトリのファイルをimgタグで表示する %>
@@ -11,3 +11,13 @@
     <img src="/image/<%= image %>" />
 <% end %>
 
+
+<%# ログイン %>
+<form action="/login" method="POST">
+  <label for="name">name:</label>
+  <input type="text" name="name" id="name" />
+  <label for="password">password：</label>
+  <input type="password" name="password" id="password"/>
+
+  <input type="submit" value="ログイン">
+</form>
