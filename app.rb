@@ -1,6 +1,8 @@
 # app.rb
 require 'sinatra'
 require 'sinatra/reloader'
+require "sinatra/cookies"
+enable :sessions
 
 get '/' do
   "<h1>Welcome page</h1>"
@@ -51,9 +53,37 @@ end
 post '/upload' do
   @filename = params[:file][:filename]
   tmp = params[:file][:tempfile]
-
+  # params[:file][:tempfile]でファイル名取得
+  # tempディレクトリは一時期的に画像の保存場所がどこなのかを保存
   FileUtils.mv(tmp, "./public/images/#{@filename}")
-
   erb :upload_output
+end
+#やってることはimages直下に画像を置いてる
+
+
+# cookie
+$users = {
+  "bamse"=> "pass",
+  "rotta"=> "tomato"
+}
+
+get "/login" do
+  erb :login
+end
+
+post '/login' do
+  @name = params[:name]
+  @password = params[:password]
+
+  if $users[@name] == @password
+    cookies[:name] = @name
+    return erb :mypage
+  end
+
+  return erb :login
+end
+
+get '/mypage' do
+  erb :mypage
 end
 
